@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>Admin</b>LTE</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form th:action="@{/login}" method="post" th:object="${user}" >
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" th:field="*{email}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Password" th:field="*{password}" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <div th:if="${error}" style="display: none"  th:attr="data-error=${error}" class="error_login"></div>
+            <div th:if="${success}" style="display: none" th:attr="data-success=${success}" class="success_login"></div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-0">
+                <a th:href="@{/register}" class="text-center">Register a new membership</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+
+
+
+<!-- SweetAlert2 -->
+<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="/plugins/toastr/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script>
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    function showError (message) {
+        $(document).Toasts('create', {
+            class: 'bg-danger',
+            title: 'Error',
+            subtitle: 'Subtitle',
+            body:message
+        })
+    }
+
+    function showSuccess (message) {
+        $(document).Toasts('create', {
+            class: 'bg-success',
+            title: 'success',
+            subtitle: 'Subtitle',
+            body:message
+        })
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var errorItems = document.querySelectorAll('.error_login');
+        errorItems.forEach(function(item) {
+            var errorMessage = item.getAttribute('data-error');
+            showError(errorMessage)
+            // console.log(errorMessage); // Affiche le message d'erreur dans la console
+            // Vous pouvez ajouter ici le code pour afficher l'erreur dans l'interface utilisateur
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var errorItems = document.querySelectorAll('.success_login');
+        errorItems.forEach(function(item) {
+            var errorMessage = item.getAttribute('data-success');
+            showSuccess(errorMessage)
+            // console.log(errorMessage); // Affiche le message d'erreur dans la console
+            // Vous pouvez ajouter ici le code pour afficher l'erreur dans l'interface utilisateur
+        });
+    });
+</script>
+</body>
+</html>

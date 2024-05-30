@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"   lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="menu">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+        <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info" sec:authorize="isAuthenticated()">
+                <a href="#" th:text="${#authentication.principal.user.email}" class="d-block"  > </a>
+            </div>
+
+        </div>
+
+        <!-- SidebarSearch Form -->
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a th:href="@{/import}" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Import excel seance</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/films/stat}" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Statistiques film</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/seances}" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Seances</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+
+</body>
+</html>

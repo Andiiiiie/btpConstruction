@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"   lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Creation</title>
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+
+    <nav th:replace="~{fragment/navbar :: navbar}" > </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragment/menu :: menu}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <!--          <div class="col-sm-6">-->
+                    <!--            <h1 class="m-0">Dashboard</h1>-->
+                    <!--          </div>&lt;!&ndash; /.col &ndash;&gt;-->
+                    <!--          <div class="col-sm-6">-->
+                    <!--            <ol class="breadcrumb float-sm-right">-->
+                    <!--              <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+                    <!--              <li class="breadcrumb-item active">Dashboard v1</li>-->
+                    <!--            </ol>-->
+                    <!--          </div>&lt;!&ndash; /.col &ndash;&gt;-->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Nouveau devis</h3>
+
+                    <div class="card-tools">
+
+                    </div>
+                </div>
+                <form th:action="@{/devis/new}" method="post">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label >Date debut</label>
+                            <!--              <div th:if="${params != null}">-->
+                            <input type="date" name="dateDebut" class="form-control" th:value="${params.get('dateDebut')}">
+                            <!--              </div>-->
+
+                            <!--              <input type="date" name="dateDebut" class="form-control" th:unless="${params!=null}" >-->
+                        </div>
+                        <div class="form-group">
+                            <label >Type de maison <span th:text="${params.getOrDefault('maison','-1')}"></span></label>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <div class="card" th:each="maison : ${maisons}" style="margin-left: 10px">
+                                    <div class="card-body">
+                                        <span th:text="${maison.getDesignation()+' '+maison.getId()}"></span>
+
+                                        <div class="card-comment" th:text="${maison.getDescription()}"></div>
+                                        <label class="btn bg-olive"  >
+                                            <input type="radio" name="maison"  th:value="${maison.getId()}"  th:checked="${maison.getId().toString().equals(params.getOrDefault('maison','-1'))}"  autocomplete="off" class="form-selectgroup-input" >Choisir
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label >Type finition <span th:text="${params.getOrDefault('finition','-1')}"></span></label>
+                            <select name="finition" class="form-control">
+                                <option  th:each="finition : ${finitions}"  th:value="${finition.getId()}" th:selected="${finition.getId().toString().equals(params.getOrDefault('finition','-1')) }" th:text="${finition.getDesignation()}" ></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer align-content-center">
+                        <button type="submit" class="btn btn-dark ">Submit</button>
+                    </div>
+                </form>
+                <div th:if="${error}" style="display: none"  th:attr="data-error=${error}" class="error_import"></div>
+
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/dist/js/pages/dashboard.js"></script>
+
+
+<!-- SweetAlert2 -->
+<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="/plugins/toastr/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script>
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    function showError (message) {
+        $(document).Toasts('create', {
+            class: 'bg-danger',
+            title: 'Toast Title',
+            subtitle: 'Subtitle',
+            body:message
+        })
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var errorItems = document.querySelectorAll('.error_import');
+        errorItems.forEach(function(item) {
+            var errorMessage = item.getAttribute('data-error');
+            showError(errorMessage)
+            console.log(errorMessage); // Affiche le message d'erreur dans la console
+            // Vous pouvez ajouter ici le code pour afficher l'erreur dans l'interface utilisateur
+        });
+    });
+</script>
+</script>
+</body>
+</html>
